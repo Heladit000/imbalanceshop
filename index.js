@@ -18,8 +18,31 @@ App.get("/new-route", (req, res)=> {
 
 //data type json
 App.get("/products", (req, res)=> {
-  res.json({
+  res.json([{
     name: "Product1",
+    price: 1000
+  },{
+    name: "Product2",
+    price: 1000
+  }])
+})
+
+App.get("/products/:id", (req, res)=> {
+  //search id params in all (req.params) params
+  const {id} = req.params;
+  res.json({
+    id,
+    name: "Product",
+    price: 1000
+  })
+})
+
+
+App.get("/users/:userId/products/:productId", (req, res)=> {
+  const {userId, productId} = req.params;
+  res.json({
+    id: productId,
+    name: "Product",
     price: 1000
   })
 })
