@@ -5,12 +5,21 @@ const router = express.Router();
 router.get("/:id", (req, res) => {
   //search id params in all (req.params) params
   const { id } = req.params;
-  res.json({
-    id,
-    name: faker.commerce.productName(),
-    image: faker.image.abstract(),
-    price: faker.commerce.price()
-  })
+
+  if (id === "errorid") {
+    res.status(404).json({
+      message: "NOT FOUND"
+    })
+  } else {
+    res.status(200).json({
+      id,
+      name: faker.commerce.productName(),
+      image: faker.image.abstract(),
+      price: faker.commerce.price()
+    })
+  }
+
+
 })
 
 
@@ -38,9 +47,28 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   const body = req.body;
 
-  res.json({
+  res.status(201).json({
     message: "created",
     data: body
+  })
+})
+
+router.patch("/", (req, res) => {
+  const body = req.body;
+
+  res.json({
+    message: "updated",
+    data: body
+  })
+})
+
+
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+
+  res.json({
+    message: "Deleted",
+    id,
   })
 })
 
