@@ -7,8 +7,9 @@ router.get("/:id", (req, res) => {
   const { id } = req.params;
   res.json({
     id,
-    name: "Product",
-    price: 1000
+    name: faker.commerce.productName(),
+    image: faker.image.abstract(),
+    price: faker.commerce.price()
   })
 })
 
@@ -25,11 +26,22 @@ router.get("/", (req, res) => {
       id: faker.database.mongodbObjectId(),
       name: faker.commerce.productName(),
       image: faker.image.abstract(),
+      price: faker.commerce.price()
     })
   }
 
-  res.send(products);
+  res.json(products);
 
+})
+
+
+router.post("/", (req, res) => {
+  const body = req.body;
+
+  res.json({
+    message: "created",
+    data: body
+  })
 })
 
 module.exports = router;

@@ -3,9 +3,15 @@
 const express = require("express");
 const routerAPI = require('./routes');
 
+const port = 3001;
+
 const App = express();
 
-const port = 3001;
+//middleware to use Json in request
+App.use(express.json());
+
+
+
 
 routerAPI(App);
 
