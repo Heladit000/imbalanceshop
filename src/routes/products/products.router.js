@@ -4,17 +4,16 @@ const router = express.Router();
 const ProductsService = require("./products.service");
 const productsService = new ProductsService();
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", async (req, res, next) => {
 
   //search id params in all (req.params) params
   const { id } = req.params;
+
   try {
     const foundProduct = await productsService.findOne(id);
     res.status(200).json(foundProduct);
   } catch (error) {
-    res.status(404).json({
-      message: error.message
-    })
+    next(error);
   }
 
 })
@@ -39,7 +38,7 @@ router.post("/", async (req, res) => {
   res.status(201).json(newProduct);
 })
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", async (req, res, next) => {
   const body = req.body;
   const { id } = req.params;
 
@@ -49,9 +48,7 @@ router.patch("/:id", async (req, res) => {
     res.json(updatedProduct)
   }
   catch (error) {
-    res.status(404).json({
-      message: error.message
-    })
+    next(error);
   }
 })
 

@@ -1,7 +1,8 @@
 //Express hello world
 
 const express = require("express");
-const routerAPI = require('./routes');
+const { logErrors, catchErrors } = require("./src/middlewares/error.handler.middleware");
+const routerAPI = require('./src/routes');
 
 const port = 3001;
 
@@ -10,7 +11,12 @@ const App = express();
 //middleware to use Json in request
 App.use(express.json());
 
+
+
 routerAPI(App);
+
+App.use(logErrors);
+App.use(catchErrors);
 
 App.listen(port, () => {
   //eslint warn because its not good practise send
