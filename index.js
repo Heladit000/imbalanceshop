@@ -10,9 +10,6 @@ const App = express();
 //middleware to use Json in request
 App.use(express.json());
 
-
-
-
 routerAPI(App);
 
 App.listen(port, () => {
