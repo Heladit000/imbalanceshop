@@ -1,4 +1,5 @@
 const { faker } = require('@faker-js/faker');
+const boom = require('@hapi/boom');
 
 class ProductsService {
   constructor() {
@@ -16,7 +17,8 @@ class ProductsService {
         id: faker.database.mongodbObjectId(),
         name: faker.commerce.productName(),
         image: faker.image.abstract(),
-        price: faker.commerce.price()
+        price: faker.commerce.price(),
+        locked: faker.datatype.boolean()
       })
     }
 
@@ -31,7 +33,11 @@ class ProductsService {
     const foundProduct = this.products.find(product => product.id === id);
 
     if (!foundProduct) {
-      throw new Error("Not Found");
+      throw boom.notFound("Product not found");
+    }
+
+    if(foundProduct.locked){
+      throw boom.locked("Product locked");
     }
 
     return foundProduct
@@ -49,7 +55,7 @@ class ProductsService {
     }
 
     if (!name || !image || !price) {
-      throw new Error("Invalid data");
+      throw boom.badReques("The product need name, image and price");
     }
 
     this.products.push(newProduct);
@@ -61,7 +67,7 @@ class ProductsService {
     const foundProductIndex = this.products.findIndex(product => product.id === id);
 
     if (foundProductIndex === -1) {
-      throw new Error("Not Found");
+      throw boom.notFound("Product not found");
     }
 
     const product = this.products[foundProductIndex];
@@ -80,7 +86,7 @@ class ProductsService {
     const foundProductIndex = this.products.findIndex(product => product.id === id);
 
     if (foundProductIndex === -1) {
-      throw new Error("Not Found");
+      throw boom.notFound("Product not found");
     }
 
     this.products.splice(foundProductIndex, 1);

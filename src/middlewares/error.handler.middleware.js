@@ -1,3 +1,5 @@
+const { isBoom } = require("@hapi/boom");
+
 const logErrors = (error, req, res, next) => {
   console.error(error);
   next(error);
@@ -10,6 +12,12 @@ const catchErrors = (error, req, res, next) => {
   })
 }
 
-module.exports = { logErrors, catchErrors };
+const catchBoomErrors = (error, req, res, next ) => {
+  if(isBoom(error)){
+    res.status(error.output.statusCode).json(error.output.payload);
+  }
+}
+
+module.exports = { logErrors, catchErrors, catchBoomErrors };
 
 
