@@ -1,7 +1,6 @@
 const { isBoom } = require("@hapi/boom");
 
 const logErrors = (error, req, res, next) => {
-  console.error(error);
   next(error);
 }
 

@@ -1,26 +1,25 @@
 //Express hello world
 
 const express = require("express");
-const { logErrors, catchErrors, catchBoomErrors } = require("./src/middlewares/error.handler.middleware");
+const { catchErrors, catchBoomErrors } = require("./src/middlewares/error.handler");
 const routerAPI = require('./src/routes');
+const { corsWhiteList } = require("./src/middlewares/cors.handler");
 
-const port = 3001;
+const config = require("./config");
+
+const port = config.app.port;
 
 const App = express();
 
-//middleware to use Json in request
+//Global middlewares pre-request
 App.use(express.json());
-
-
+App.use(corsWhiteList(config.app.whitelist.hosts, config.app.whitelist.enable));
 
 routerAPI(App);
 
-//App.use(logErrors);
+//Global middlewares post-request
 App.use(catchBoomErrors);
 App.use(catchErrors);
 
-App.listen(port, () => {
-  //eslint warn because its not good practise send
-  console.log(`The app running in ${port} port`);
-})
+App.listen(port);
 

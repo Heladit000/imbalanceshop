@@ -1,6 +1,3 @@
-
-//TODO: describe funcion in vscode
-
 const boom = require("@hapi/boom");
 
 const validateSchema = (schema, dataType) => {
