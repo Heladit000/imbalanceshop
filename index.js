@@ -15,7 +15,7 @@ App.use(express.json());
 
 routerAPI(App);
 
-App.use(logErrors);
+//App.use(logErrors);
 App.use(catchBoomErrors);
 App.use(catchErrors);
 

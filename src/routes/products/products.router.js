@@ -1,10 +1,23 @@
 const express = require("express");
+const { findProductSchema, createProductSchema, updatedProductSchema } = require("./products.schema");
+const validateSchema = require("../../middlewares/schema.validator.handler.middleware");
 const router = express.Router();
 
 const ProductsService = require("./products.service");
 const productsService = new ProductsService();
 
-router.get("/:id", async (req, res, next) => {
+
+router.get("/", async (req, res) => {
+
+  const { size } = req.query;
+
+  const productsList = await productsService.list(size);
+
+  res.status(200).json(productsList);
+
+})
+
+router.get("/:id", validateSchema(findProductSchema, "params"), async (req, res, next) => {
 
   //search id params in all (req.params) params
   const { id } = req.params;
@@ -19,18 +32,8 @@ router.get("/:id", async (req, res, next) => {
 })
 
 
-router.get("/", async (req, res) => {
 
-  const { size } = req.query;
-
-  const productsList = await productsService.list(size);
-
-  res.status(200).json(productsList);
-
-})
-
-
-router.post("/", async (req, res) => {
+router.post("/", validateSchema(createProductSchema, "body"), async (req, res) => {
   const body = req.body;
 
   const newProduct = await productsService.create(body);
@@ -38,7 +41,7 @@ router.post("/", async (req, res) => {
   res.status(201).json(newProduct);
 })
 
-router.patch("/:id", async (req, res, next) => {
+router.patch("/:id", validateSchema(findProductSchema, "params"), validateSchema(updatedProductSchema, "body"), async (req, res, next) => {
   const body = req.body;
   const { id } = req.params;
 
@@ -53,7 +56,8 @@ router.patch("/:id", async (req, res, next) => {
 })
 
 
-router.delete("/:id", async (req, res) => {
+
+router.delete("/:id", validateSchema(findProductSchema, "params"), async (req, res, next) => {
   const { id } = req.params;
 
   try {
@@ -61,9 +65,7 @@ router.delete("/:id", async (req, res) => {
     res.json(deletedProduct)
   }
   catch (error) {
-    res.status(404).json({
-      message: error.message
-    })
+    next(error);
   }
 })
 
