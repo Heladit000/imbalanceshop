@@ -1,8 +1,14 @@
 {
+  "cleanUrls": true,
   "builds": [
     {
       "src": "index.js",
       "use": "@vercel/node"
+    },
+
+    {
+      "src": "public/docs/index.html",
+      "use": "@vercel/static"
     },
     {
       "src": "public/docs/**",
@@ -11,7 +17,7 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
+      "src": "/api",
       "dest": "index.js"
     },
     {
