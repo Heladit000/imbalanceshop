@@ -10,7 +10,7 @@ const routerAPI = (app) => {
   router.use("/products",products);
   router.use("/",docs);
 
-  app.use("/api/v1",router);
+  app.use("/v1",router);
 }
 
 module.exports = routerAPI;
