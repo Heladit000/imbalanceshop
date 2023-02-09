@@ -1,12 +1,12 @@
 {
   "name": "imbalanceshop",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "build": "",
+    "build-docs": "npx insomnia-documenter --config ./public/config.json --output ./public/docs",
     "lint": "eslint"
   },
   "keywords": [],

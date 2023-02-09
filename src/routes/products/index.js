@@ -4,6 +4,7 @@ const validateSchema = require("../../middlewares/schema.validator.handler");
 const router = express.Router();
 
 const ProductsService = require("./controllers");
+const validateInvincibleProduct = require("./middlewares/invinsible.product.validator.handler");
 const productsService = new ProductsService();
 
 
@@ -41,7 +42,7 @@ router.post("/", validateSchema(createProductSchema, "body"), async (req, res) =
   res.status(201).json(newProduct);
 })
 
-router.patch("/:id", validateSchema(findProductSchema, "params"), validateSchema(updatedProductSchema, "body"), async (req, res, next) => {
+router.patch("/:id", validateInvincibleProduct(), validateSchema(findProductSchema, "params"), validateSchema(updatedProductSchema, "body"), async (req, res, next) => {
   const body = req.body;
   const { id } = req.params;
 
@@ -57,7 +58,7 @@ router.patch("/:id", validateSchema(findProductSchema, "params"), validateSchema
 
 
 
-router.delete("/:id", validateSchema(findProductSchema, "params"), async (req, res, next) => {
+router.delete("/:id", validateInvincibleProduct(), validateSchema(findProductSchema, "params"), async (req, res, next) => {
   const { id } = req.params;
 
   try {

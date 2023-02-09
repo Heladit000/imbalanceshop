@@ -1,8 +1,9 @@
 const Joi = require("joi");
+const config = require("../../../../config");
 
 const defaultProductSchema = {
-  id: Joi.string().length(24),
-  name: Joi.string().alphanum().min(2).max(20),
+  id: Joi.string().length(24).invalid(config.app.products.defaultProduct.id),
+  name: Joi.string().min(2).max(20),
   price: Joi.number().integer().min(100),
   image: Joi.string().uri(),
 }

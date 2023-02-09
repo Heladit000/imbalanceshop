@@ -1,5 +1,6 @@
 const { faker } = require('@faker-js/faker');
 const boom = require('@hapi/boom');
+const config = require('../../../../config');
 
 class ProductsService {
   constructor() {
@@ -17,10 +18,17 @@ class ProductsService {
         id: faker.database.mongodbObjectId(),
         name: faker.commerce.productName(),
         image: faker.image.abstract(),
-        price: faker.commerce.price(),
+        price: parseInt(faker.commerce.price(100, 500)),
         locked: faker.datatype.boolean()
       })
     }
+
+    this.products.push({
+      ...this.products[0],
+      id: config.app.products.defaultProduct.id,
+      name: config.app.products.defaultProduct.name,
+      locked: false
+    })
 
     return this.products;
   }
@@ -36,7 +44,7 @@ class ProductsService {
       throw boom.notFound("Product not found");
     }
 
-    if(foundProduct.locked){
+    if (foundProduct.locked) {
       throw boom.locked("Product locked");
     }
 
