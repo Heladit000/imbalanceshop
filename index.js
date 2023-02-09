@@ -1,5 +1,3 @@
-//Express hello world
-
 const express = require("express");
 const { catchErrors, catchBoomErrors } = require("./src/middlewares/error.handler");
 const routerAPI = require('./src/routes');
@@ -18,7 +16,7 @@ App.use(corsWhiteList(config.app.whitelist.hosts, config.app.whitelist.enable));
 routerAPI(App);
 
 //access to docs files
-App.use(express.static("public/docs"))
+//App.use(express.static(path.join("public/docs")))
 
 //Global middlewares post-request
 App.use(catchBoomErrors);
