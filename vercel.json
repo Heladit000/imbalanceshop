@@ -19,7 +19,7 @@
       "dest": "public/docs/index.html"
     },
     {
-      "src": "/docs/(.+)",
+      "src": "/(.+)",
       "dest": "public/docs/$1"
     }
   ]
