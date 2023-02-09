@@ -20,7 +20,7 @@
     },
     {
       "src": "/docs/(.+)",
-      "dest": "public/$1"
+      "dest": "public/docs/$1"
     }
   ]
 }
