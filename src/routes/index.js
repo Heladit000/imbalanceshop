@@ -1,4 +1,6 @@
 const products = require("./products");
+const notFound = require("./notFound");
+
 //const docs = require("./docs");
 
 
@@ -11,6 +13,8 @@ const routerAPI = (app) => {
   //router.use("/",docs);
 
   app.use("/api/v1",router);
+
+  app.use("*", notFound)
 }
 
 module.exports = routerAPI;
