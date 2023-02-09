@@ -17,6 +17,10 @@
     {
       "src": "/docs",
       "dest": "public/docs/index.html"
+    },
+    {
+      "src": "/docs/(.+)",
+      "dest": "public/$1"
     }
   ]
 }

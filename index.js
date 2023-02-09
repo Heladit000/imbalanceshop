@@ -16,7 +16,7 @@ App.use(corsWhiteList(config.app.whitelist.hosts, config.app.whitelist.enable));
 routerAPI(App);
 
 //access to docs files
-App.use(express.static(path.join("public/docs")))
+//App.use(express.static(path.join("public/docs")))
 
 //Global middlewares post-request
 App.use(catchBoomErrors);
