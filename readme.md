@@ -14,3 +14,5 @@ REST API of products where everyone can create, modify and delete Products
 - [x] data validation with Joi
 - [x] Middlewares to manage errors with Boom
 - [x] Deploy using vercel
+
+[Try list products!](https://imbalanceshop.vercel.app/api/v1/products "Try list products!") 
