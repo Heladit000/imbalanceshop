@@ -1,8 +1,7 @@
 const boom = require("@hapi/boom");
-const path = require("path")
-const sendBoomError = () => {
-  const rootPath = path.resolve("./");
-  throw boom.notFound(`Not found, try ${rootPath}/api/v1/products`);
+
+const sendBoomError = (protocol,host) => {
+  throw boom.notFound(`Not found, try ${protocol}://${host}/api/v1/products`);
 }
 
 module.exports = sendBoomError;
